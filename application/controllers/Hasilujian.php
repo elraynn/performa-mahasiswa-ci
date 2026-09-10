@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use Elrayn\TableExport\Export;
+
 class HasilUjian extends CI_Controller {
 
 	public function __construct(){
@@ -101,5 +103,22 @@ class HasilUjian extends CI_Controller {
 
 		$this->load->view('ujian/cetak_detail', $data);
 	}
-	
+
+	public function export_excel($id)
+	{
+		$ujian = $this->ujian->getUjianById($id);
+		$hasil = $this->ujian->bandingNilai($id)->result();
+
+		Export::make($hasil)
+			->title('Hasil Ujian - ' . $ujian->nama_ujian)
+			->columns([
+				'nama'         => 'Nama',
+				'nama_kelas'   => 'Kelas',
+				'nama_jurusan' => 'Jurusan',
+				'jml_benar'    => 'Jumlah Benar',
+				'nilai'        => 'Nilai',
+			])
+			->asExcel('hasil-ujian-' . $id . '.xlsx');
+	}
+
 }

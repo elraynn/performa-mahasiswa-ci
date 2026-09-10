@@ -11,11 +11,16 @@
         "source": "https://github.com/bcit-ci/CodeIgniter"
     },
     "require": {
-        "php": ">=7.0"
+        "php": ">=7.0",
+        "elrayn/table-export": "dev-main"
     },
     "suggest": {
         "paragonie/random_compat": "Provides better randomness in PHP 5.x"
     },
-    "require-dev": {
-    }
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/elraynn/table-export"
+        }
+    ]
 }
